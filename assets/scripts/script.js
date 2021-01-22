@@ -1,2 +1,5 @@
 var highScores= {}
 
+function startQuiz(){
+    
+}
