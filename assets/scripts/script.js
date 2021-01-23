@@ -1,4 +1,4 @@
-var highScores = {}
+var highscores = {}
 var timer = 75
 var runTimer = ""
 var questionList = { 1: "Commonly used data types DO NOT include:", 2: "The condition in an if/else statement is enclosed within _________", 3: "Arrays in JavaScript can be used to store _______", 4: "String values must be enclosed within ______ when being assigned to variables", 5: "A very useful tool used during development and debugging for printing content to the debugger is:" }
@@ -7,8 +7,8 @@ var answerKey = { 1: "alerts", 2: "parentheses", 3: "all of the above", 4: "quot
 var questionNumber = 1
 var bodyContent = document.getElementById("body-content")
 
-if (localStorage.highScores) {
-    highScores = localStorage.highScores
+if (localStorage.highscores) {
+    highscores = JSON.parse(localStorage.highscores)
 }
 
 function startQuiz() {
@@ -48,25 +48,41 @@ function endQuiz() {
 
     //build input to submit name which will be associated with score
     var nameForm = document.createElement("form")
-    nameForm.id= "name-form"
+    nameForm.id = "name-form"
+    nameForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+    })
     bodyContent.appendChild(nameForm)
-    var nameLabel= document.createElement("label")
-    nameLabel.innerText= "Enter Initials"
+    var nameLabel = document.createElement("label")
+    nameLabel.innerText = "Enter Initials"
     document.getElementById("name-form").appendChild(nameLabel)
     var nameInput = document.createElement("input")
     nameInput.type = "text"
     nameInput.id = "name-input"
     document.getElementById("name-form").appendChild(nameInput)
     var nameSubmit = document.createElement("button")
-    nameSubmit.innerText= "Submit"
+    nameSubmit.innerText = "Submit"
     nameSubmit.setAttribute("onClick", "addToHighscores()")
-    document.getElementById("name-form").appendChild(nameSubmit)
+    bodyContent.appendChild(nameSubmit)
 }
 
-function addToHighscores () {
 
+function addToHighscores() {
+    highscores[document.getElementById("name-input").value] = timer
+    localStorage.highscores= JSON.stringify(highscores)
+    buildHighscores()
 }
 
+function buildHighscores() {
+    // function to sort highscores from dictionary
+    var orderedScores = Object.keys(highscores).map(function(key) {
+        return [key, highscores[key]];
+      });
+      orderedScores.sort(function(first, second) {
+        return second[1] - first[1];
+      });
+    
+}
 function buildQuestion() {
     bodyContent.children[0].remove()
     var question = document.createElement("h1");
