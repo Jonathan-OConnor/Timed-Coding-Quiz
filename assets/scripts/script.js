@@ -1,3 +1,4 @@
+// global variables
 var highscores = {}
 var timer = 75
 var runTimer = ""
@@ -5,15 +6,17 @@ var questionList = { 1: "Commonly used data types DO NOT include:", 2: "The cond
 var answerList = { 1: ["strings", "booleans", "alerts", "numbers"], 2: ["quotes", "curly brackets", "parentheses", "square brackets"], 3: ["numbers and strings", "other arrays", "booleans", "all of the above"], 4: ["commas", "curly brackets", "quotes", "parentheses"], 5: ["Javascript", "terminal/bash", "for loops", "console.log"] }
 var answerKey = { 1: "alerts", 2: "parentheses", 3: "all of the above", 4: "quotes", 5: "console.log" }
 var questionNumber = 1
-var bodyContent = document.getElementById("body-content")
+var bodyContent = ""
 var frontPage= document.body.innerHTML
 
+//check if highscores exist in local storage
 if (localStorage.highscores) {
     highscores = JSON.parse(localStorage.highscores)
 }
 
 function startQuiz() {
     // build html for questions and answers
+    bodyContent = document.getElementById("body-content")
     buildQuestion();
     buildAnswers();
 
