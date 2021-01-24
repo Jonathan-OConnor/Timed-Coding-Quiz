@@ -6,13 +6,14 @@ var answerList = { 1: ["strings", "booleans", "alerts", "numbers"], 2: ["quotes"
 var answerKey = { 1: "alerts", 2: "parentheses", 3: "all of the above", 4: "quotes", 5: "console.log" }
 var questionNumber = 1
 var bodyContent = document.getElementById("body-content")
+var frontPage= document.body.innerHTML
 
 if (localStorage.highscores) {
     highscores = JSON.parse(localStorage.highscores)
 }
 
 function startQuiz() {
-
+    // build html for questions and answers
     buildQuestion();
     buildAnswers();
 
@@ -69,20 +70,85 @@ function endQuiz() {
 
 function addToHighscores() {
     highscores[document.getElementById("name-input").value] = timer
-    localStorage.highscores= JSON.stringify(highscores)
+    localStorage.highscores = JSON.stringify(highscores)
     buildHighscores()
 }
 
 function buildHighscores() {
-    // function to sort highscores from dictionary
-    var orderedScores = Object.keys(highscores).map(function(key) {
+    // function to sort highscores from dictionary into descending order
+    var orderedScores = Object.keys(highscores).map(function (key) {
         return [key, highscores[key]];
-      });
-      orderedScores.sort(function(first, second) {
+    });
+    orderedScores.sort(function (first, second) {
         return second[1] - first[1];
-      });
-    
+    });
+
+    // clear page
+    bodyContent.innerHTML = ""
+
+    // build html
+    var row1 = document.createElement("div")
+    row1.id = "row1"
+    row1.setAttribute("class", "row justify-content-center")
+    bodyContent.appendChild(row1)
+
+    var initials = document.createElement("div")
+    initials.setAttribute("class", "col-6")
+    initials.id = "initials"
+    row1.appendChild(initials)
+
+    var scores = document.createElement("div")
+    scores.setAttribute("class", "col-6")
+    scores.id = "scores"
+    row1.appendChild(scores)
+
+    for (var i = 0; i < orderedScores.length; i++) {
+        var name = document.createElement("p")
+        name.id = "name" + `${i}`
+        name.innerText = orderedScores[i][0]
+        var score = document.createElement("p")
+        score.id = "score" + `${i}`
+        score.innerText = orderedScores[i][1]
+        initials.appendChild(name)
+        scores.appendChild(score)
+    }
+
+    var row2 = document.createElement("div")
+    row2.id = "row2"
+    row2.setAttribute("class", "row justify-content-center")
+    bodyContent.appendChild(row2)
+
+    var buttonColumn = document.createElement("div")
+    buttonColumn.id = "button-column"
+    buttonColumn.setAttribute("class", "col-6")
+    row2.appendChild(buttonColumn)
+
+    var returnButton = document.createElement("button")
+    returnButton.setAttribute("class", "btn")
+    returnButton.setAttribute("onClick", "buildFrontPage()")
+    returnButton.innerHTML = "Return"
+    buttonColumn.appendChild(returnButton)
+
+    var clearButton = document.createElement("button")
+    clearButton.setAttribute("class", "btn")
+    clearButton.setAttribute("onClick", "clearScores()")
+    clearButton.innerHTML = "Clear Scores"
+    buttonColumn.appendChild(clearButton)
 }
+
+function buildFrontPage() {
+    document.body.innerHTML=""
+    questionNumber = 1
+    timer= 75
+    document.body.innerHTML= frontPage
+}
+
+function clearScores() {
+    document.getElementById("row1").innerHTML = ""
+    localStorage.highscores = JSON.stringify({})
+    highscores = {}
+}
+
 function buildQuestion() {
     bodyContent.children[0].remove()
     var question = document.createElement("h1");
