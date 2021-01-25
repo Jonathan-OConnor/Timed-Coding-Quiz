@@ -58,6 +58,11 @@ function endQuiz() {
     bodyContent.innerHTML= inputPage
 }
 
+function viewHighscores(){
+    clearInterval(runTimer)
+    document.getElementById("time-count").innerHTML = "0"
+    buildHighscores()
+}
 
 function addToHighscores() {
     highscores.push([document.getElementById("name-input").value, timer])
