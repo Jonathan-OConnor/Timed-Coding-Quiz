@@ -1,5 +1,5 @@
 // global variables
-var highscores = {}
+var highscores = []
 var timer = 75
 var runTimer = ""
 var questionList = { 1: "Commonly used data types DO NOT include:", 2: "The condition in an if/else statement is enclosed within _________", 3: "Arrays in JavaScript can be used to store _______", 4: "String values must be enclosed within ______ when being assigned to variables", 5: "A very useful tool used during development and debugging for printing content to the debugger is:" }
@@ -72,17 +72,15 @@ function endQuiz() {
 
 
 function addToHighscores() {
-    highscores[document.getElementById("name-input").value] = timer
+    highscores.push([document.getElementById("name-input").value, timer])
     localStorage.highscores = JSON.stringify(highscores)
     buildHighscores()
 }
 
 function buildHighscores() {
     // function to sort highscores from dictionary into descending order
-    var orderedScores = Object.keys(highscores).map(function (key) {
-        return [key, highscores[key]];
-    });
-    orderedScores.sort(function (first, second) {
+
+    highscores.sort(function (first, second) {
         return second[1] - first[1];
     });
 
@@ -105,13 +103,13 @@ function buildHighscores() {
     scores.id = "scores"
     row1.appendChild(scores)
 
-    for (var i = 0; i < orderedScores.length; i++) {
+    for (var i = 0; i < highscores.length; i++) {
         var name = document.createElement("p")
         name.id = "name" + `${i}`
-        name.innerText = orderedScores[i][0]
+        name.innerText = highscores[i][0]
         var score = document.createElement("p")
         score.id = "score" + `${i}`
-        score.innerText = orderedScores[i][1]
+        score.innerText = highscores[i][1]
         initials.appendChild(name)
         scores.appendChild(score)
     }
@@ -149,7 +147,7 @@ function buildFrontPage() {
 function clearScores() {
     document.getElementById("row1").innerHTML = ""
     localStorage.highscores = JSON.stringify({})
-    highscores = {}
+    highscores = []
 }
 
 function buildQuestion() {
