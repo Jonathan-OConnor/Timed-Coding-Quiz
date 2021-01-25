@@ -89,7 +89,7 @@ function buildHighscores() {
 
 function clearScores() {
     document.getElementById("row1").innerHTML = ""
-    localStorage.highscores = JSON.stringify({})
+    localStorage.highscores = JSON.stringify([])
     highscores = []
 }
 
