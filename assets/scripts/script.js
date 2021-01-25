@@ -65,9 +65,16 @@ function viewHighscores(){
 }
 
 function addToHighscores() {
-    highscores.push([document.getElementById("name-input").value, timer])
+    if (document.getElementById("name-input").value != ""){
+    // remove spaces since empty inputs break CSS of highscore page
+    var cleanedString = document.getElementById("name-input").value.replace(' ', '_')
+    
+    // add cleaned string to highscore list with corresponding score
+    highscores.push([cleanedString, timer])
     localStorage.highscores = JSON.stringify(highscores)
-    buildHighscores()
+    buildHighscores()} else {
+        alert("Please enter your initials to continue")
+    }
 }
 
 function buildHighscores() {
@@ -81,14 +88,27 @@ function buildHighscores() {
 
     // add information from local storage to highscore page
     for (var i = 0; i < highscores.length; i++) {
+        var nameRow = document.createElement("div")
+        nameRow.id= "name" + `${i}`
+        nameRow.setAttribute("class", "row highscore-row")
+        document.getElementById("initials").appendChild(nameRow)
+
         var name = document.createElement("p")
         name.id = "name" + `${i}`
         name.innerText = highscores[i][0]
+        name.setAttribute("class","text-center")
+        nameRow.appendChild(name)
+
+        var scoreRow = document.createElement("div")
+        scoreRow.id= "score" + `${i}`
+        scoreRow.setAttribute("class", "row highscore-row")
+        document.getElementById("scores").appendChild(scoreRow)
+
         var score = document.createElement("p")
         score.id = "score" + `${i}`
         score.innerText = highscores[i][1]
-        initials.appendChild(name)
-        scores.appendChild(score)
+        score.setAttribute("class","text-center")
+        scoreRow.appendChild(score)
     }
 }
 

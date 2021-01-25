@@ -19,14 +19,15 @@ var inputPage = `
     <label>Enter Initials</label>
     <input type="text" id="name-input">
 </form>
-<button onclick="addToHighscores()">Submit</button>
+<button class= "btn btn-primary" onClick="addToHighscores()">Submit</button>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="assets/pages/pages.js"></script>
 <script src="assets/scripts/script.js"></script></body></html>`
 
 var highscorePage= `
-<div id="row1" class="row justify-content-center">
+<h1>Highscores!</h1>
+<div id="row1" class="row justify-content-center highscore-table">
     <div class="col-6" id="initials">
      
     </div>
@@ -35,9 +36,9 @@ var highscorePage= `
     </div>
 </div>
 <div id="row2" class="row justify-content-center">
-    <div id="button-column" class="col-6">
-        <button class="btn" onclick="buildFrontPage()">Return</button>
-        <button class="btn" onclick="clearScores()">Clear Scores</button>
+    <div id="button-column" class="col-12">
+        <button class="btn btn-primary" onclick="buildFrontPage()">Return</button>
+        <button class="btn btn-primary" onclick="clearScores()">Clear Scores</button>
     </div>
 </div>
 

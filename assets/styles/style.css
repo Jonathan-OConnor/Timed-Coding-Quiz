@@ -1,3 +1,4 @@
+/* Stylings for the content on the front page */
 #intro-text{
  font-size: 30px;
 }
@@ -9,4 +10,23 @@
 .first-page-item{
     padding-top: 30px;
 
+}
+
+/* Stylings for the highscore table */
+.highscore-table{
+    border: 2px solid black;
+}
+
+.highscore-row {
+    border-bottom: 1px solid gray;
+}
+
+#initials {
+    border-right: 2px solid black;
+}
+
+/* Stylings for return and clear buttons on highscore page */
+#row2 {
+    margin-top: 30px;
+    text-align: center
 }
