@@ -25,6 +25,8 @@ function startQuiz() {
 
 function updateTimer() {
     if (timer <= 0) {
+        // set score to zero if score is below zero
+        timer= 0
         document.getElementById("time-count").innerHTML = '0'
         endQuiz()
     } else {
@@ -130,7 +132,8 @@ function buildHighscores() {
 
 // function ran when the Clear Scores button on the highscore page is clicked
 function clearScores() {
-    document.getElementById("row1").innerHTML = ""
+    document.getElementById("initials").innerHTML = ""
+    document.getElementById("scores").innerHTML = ""
     localStorage.highscores = JSON.stringify([])
     highscores = []
 }
