@@ -6,17 +6,17 @@ var questionList = { 1: "Commonly used data types DO NOT include:", 2: "The cond
 var answerList = { 1: ["strings", "booleans", "alerts", "numbers"], 2: ["quotes", "curly brackets", "parentheses", "square brackets"], 3: ["numbers and strings", "other arrays", "booleans", "all of the above"], 4: ["commas", "curly brackets", "quotes", "parentheses"], 5: ["Javascript", "terminal/bash", "for loops", "console.log"] }
 var answerKey = { 1: "alerts", 2: "parentheses", 3: "all of the above", 4: "quotes", 5: "console.log" }
 var questionNumber = 1
-var frontPage= document.body.innerHTML
-var bodyContent = document.getElementById("body-content")
 
 //check if highscores exist in local storage
 if (localStorage.highscores) {
     highscores = JSON.parse(localStorage.highscores)
 }
 
+// function ran when the quiz is started
 function startQuiz() {
     // build html for questions and answers
-    bodyContent.innerHTML= questionPage
+    document.getElementById("first-page").style.display= "none"
+    document.getElementById("question-page").style.display= ""
 
     //start timer
     document.getElementById("time-count").innerHTML = `${timer}`
@@ -55,16 +55,22 @@ function checkAnswer(id) {
 function endQuiz() {
     clearInterval(runTimer)
     // build completion page
-    bodyContent.innerHTML= inputPage
+    document.getElementById("question-page").style.display= "none"
+    document.getElementById("input-page").style.display= ""
 }
 
 function viewHighscores(){
     clearInterval(runTimer)
     document.getElementById("time-count").innerHTML = "0"
+    document.getElementById("first-page").style.display= "none"
+    document.getElementById("question-page").style.display= "none"
+    document.getElementById("input-page").style.display= "none"
+    document.getElementById("highscore-page").style.display= ""
     buildHighscores()
 }
 
-function addToHighscores() {
+function addToHighscores(event) {
+    event.preventDefault()
     if (document.getElementById("name-input").value != ""){
     // remove spaces since empty inputs break CSS of highscore page
     var cleanedString = document.getElementById("name-input").value.replace(' ', '_')
@@ -83,27 +89,37 @@ function buildHighscores() {
         return second[1] - first[1];
     });
 
-    // clear page and build html
-    bodyContent.innerHTML = highscorePage
+    // clear page score page so it can be rebuilt
+    document.getElementById("initials").innerHTML= ""
+    document.getElementById("scores").innerHTML= ""
+
+    // move from input page to highscore page
+    document.getElementById("input-page").style.display= "none"
+    document.getElementById("highscore-page").style.display= ""
 
     // add information from local storage to highscore page
     for (var i = 0; i < highscores.length; i++) {
+
+        // build a new row for each name
         var nameRow = document.createElement("div")
         nameRow.id= "name" + `${i}`
         nameRow.setAttribute("class", "row highscore-row")
         document.getElementById("initials").appendChild(nameRow)
 
+        // build the name to be placed in the name row
         var name = document.createElement("p")
         name.id = "name" + `${i}`
         name.innerText = highscores[i][0]
         name.setAttribute("class","text-center")
         nameRow.appendChild(name)
 
+        // build a new row for the score
         var scoreRow = document.createElement("div")
         scoreRow.id= "score" + `${i}`
         scoreRow.setAttribute("class", "row highscore-row")
         document.getElementById("scores").appendChild(scoreRow)
 
+        // build the score to be placed in the score row
         var score = document.createElement("p")
         score.id = "score" + `${i}`
         score.innerText = highscores[i][1]
@@ -112,15 +128,17 @@ function buildHighscores() {
     }
 }
 
+// function ran when the Clear Scores button on the highscore page is clicked
 function clearScores() {
     document.getElementById("row1").innerHTML = ""
     localStorage.highscores = JSON.stringify([])
     highscores = []
 }
 
+// function ran when the Return button on the highscore page is clicked
 function buildFrontPage() {
     questionNumber = 1
     timer= 75
-    document.body.innerHTML= frontPage
-    bodyContent = document.getElementById("body-content")
+    document.getElementById("highscore-page").style.display= "none"
+    document.getElementById("first-page").style.display= ""
 }
