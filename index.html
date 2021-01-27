@@ -18,54 +18,53 @@
         </div>
 
     </nav>
-    <div class="container first-page-content" id="first-page">
-        <div class="row justify-content-center">
+    <section class="container first-page-content" id="first-page">
+        <article class="row justify-content-center">
             <div class="col-8 text-center ">
                 <h1 class="first-page-item">Coding Quiz Challenge</h1>
                 <p class="first-page-item" id="intro-text">Try to answer the following code-related questions within the
                     time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
                 <button type="button" class="btn btn-primary" onClick="startQuiz()">Start Quiz</button>
             </div>
-        </div>
-    </div>
+        </article>
+    </section>
 
-    <div class="container question-page" id="question-page" style="display: none">
+    <section class="container question-page" id="question-page" style="display: none">
         <h1 class="text-center" id="question">Commonly used data types DO NOT include:</h1>
-        <div class="d-grid gap-2 col-3 mx-auto" id="answers">
+        <article class="d-grid gap-2 col-3 mx-auto" id="answers">
             <button id="answer-0" onclick="checkAnswer('answer-0')" class="btn btn-primary">strings</button>
             <button id="answer-1" onclick="checkAnswer('answer-1')" class="btn btn-primary">booleans</button>
             <button id="answer-2" onclick="checkAnswer('answer-2')" class="btn btn-primary">alerts</button>
             <button id="answer-3" onclick="checkAnswer('answer-3')" class="btn btn-primary">numbers</button>
-        </div>
-    </div>
+        </article>
+    </section>
 
-    <div class="container input-page" id="input-page" style="display: none">
+    <section class="container input-page" id="input-page" style="display: none">
         <h1>All Done!</h1>
-        <p></p>
         <form id="name-form" onsubmit="addToHighscores(event)">
             <label>Enter Initials</label>
             <input type="text" id="name-input">
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
-    </div>
+    </section>
 
-    <div class="container highscore-page" id="highscore-page" style="display: none">
+    <section class="container highscore-page" id="highscore-page" style="display: none">
         <h2>Highscores!</h2>
-        <div id="row1" class="row justify-content-center highscore-table">
+        <article id="row1" class="row justify-content-center highscore-table">
             <div class="col-6" id="initials">
 
             </div>
             <div class="col-6" id="scores">
 
             </div>
-        </div>
-        <div id="row2" class="row justify-content-center">
+        </article>
+        <article id="row2" class="row justify-content-center">
             <div id="button-column" class="col-12">
                 <button class="btn btn-primary" onclick="buildFrontPage()">Return</button>
                 <button class="btn btn-primary" onclick="clearScores()">Clear Scores</button>
             </div>
-        </div>
-    </div>
+        </article>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
